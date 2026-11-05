@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pugnido 2 Football</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07110b;--s:#0f1f15;--s2:#193522;--tx:#eaf5ec;--mu:#8fa897;--ac:#c6ff3d;--ac2:#0b1a0f;--rd:#ff5252;--bd:#1f3a28;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f1f6f2;--s:#fff;--s2:#dfeee3;--tx:#0b1a0f;--mu:#52695a;--ac:#0b6b2e;--ac2:#fff;--bd:#cfe0d4;--rd:#c62828;color-scheme:light}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 Inter,system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+h2,h3,.cond{font-family:'Barlow Condensed','Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.5px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--bd)}
+.logo{padding:10px 14px 2px;font:800 28px 'Barlow Condensed',sans-serif;letter-spacing:1px}.logo span{color:var(--ac)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:6px 10px 10px;scrollbar-width:none}
+.tabs a{flex:none;padding:8px 14px;border-radius:99px;background:var(--s);color:var(--mu);text-decoration:none;font-weight:600;font-size:14px;text-transform:capitalize}
+.tabs a.on{background:var(--ac);color:var(--ac2)}
+main{max-width:760px;margin:0 auto;padding:14px;min-height:70vh}
+h2{font-size:22px;margin:22px 0 10px;border-left:4px solid var(--ac);padding-left:10px}
+.mc{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:14px 12px;margin-bottom:10px;color:inherit;text-decoration:none}
+.tm{display:flex;align-items:center;gap:8px;font-size:14px}.tm.r{justify-content:flex-end;text-align:right}
+.cr{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:800 12px 'Barlow Condensed',sans-serif;color:#000;flex:none}
+.sc{text-align:center;min-width:76px}.n{font:800 30px 'Barlow Condensed',sans-serif;display:block;line-height:1}
+.ko{font:700 20px 'Barlow Condensed',sans-serif;display:block}
+small{color:var(--mu)}small.lv{color:var(--rd);font-weight:700}
+.box{background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px}
+.hero{background:linear-gradient(135deg,var(--s2),var(--s));border:1px solid var(--bd);border-radius:18px;padding:18px;margin-bottom:6px}
+.hero h1{font:800 34px/1 'Barlow Condensed',sans-serif;margin:0 0 6px;text-transform:uppercase}.hero h1 span{color:var(--ac)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+button{font:inherit;border:0;border-radius:10px;padding:9px 14px;font-weight:600;cursor:pointer;background:var(--s2);color:var(--tx)}
+.b1{background:var(--ac);color:var(--ac2)}.bd{background:#5b1a1a;color:#ffd0d0}
+input,select,textarea{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:10px;font:inherit}
+label{display:block;margin:8px 0;color:var(--mu);font-size:13px}
+.ov{position:fixed;inset:0;background:#000a;display:grid;place-items:end center;z-index:20}
+.md{background:var(--s);width:100%;max-width:520px;max-height:90vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--bd)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.em{color:var(--mu);text-align:center;padding:18px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ac);color:var(--ac2);padding:10px 16px;border-radius:99px;z-index:30;font-weight:600}
+details p{white-space:pre-wrap;color:var(--mu)}summary{cursor:pointer}
+footer{text-align:center;color:var(--mu);padding:20px;font-size:13px}
+</style></head><body>
+<header><div class="logo">PUGNIDO <span>2</span> FOOTBALL</div><nav class="tabs" id="nv"></nav></header>
+<main id="app"></main>
+<footer>© OB Tech · <a href="#admin" style="color:var(--mu)">Admin</a></footer>
+<footer>Contact us on Facebook: <a href="https://www.facebook.com/obelwilliam.dak">Obel William</a>
+<footer>Phone number: +251908389122</footer>
+<script>
+const K='pug2fb',E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+function seed(){
+ const T=[['Lagos Lions','LAG','#f5c518'],['Nairobi United','NAI','#e63946'],['Accra Stars','ACC','#2a9d8f'],['Cairo Falcons','CAI','#4361ee'],['Dakar Sharks','DAK','#00b4d8'],['Kigali Rangers','KIG','#9b5de5']];
+ const F=['Alex','Musa','Kofi','Idris','Tariq','Samir','Jabu','Omar','Yusuf','Femi','Kwame','Zane','Ade'],L=['Okoye','Mensah','Diallo','Hassan','Kamau','Nkosi','Bello','Traore','Mwangi','Sarr','Adeyemi','Osei','Banda'],P=['GK','DF','DF','DF','DF','MF','MF','MF','FW','FW','FW','MF','FW'];
+ const teams=T.map(t=>({id:uid(),name:t[0],short:t[1],color:t[2]})),players=[];
+ teams.forEach((t,i)=>P.forEach((p,j)=>players.push({id:uid(),name:F[(i*5+j)%13]+' '+L[(i*3+j*2)%13],team:t.id,num:j+1,pos:p})));
+ const lu=t=>players.filter(p=>p.team==t.id).slice(0,11).map(p=>p.id),pl=(t,n)=>players.filter(p=>p.team==t.id)[n].id;
+ const d=h=>new Date(Date.now()+h*36e5-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16);
+ const M=(a,b,h,st,hs,as,min,g,s)=>({id:uid(),home:teams[a].id,away:teams[b].id,date:d(h),status:st,hs,as,min,lh:st=='upcoming'?[]:lu(teams[a]),la:st=='upcoming'?[]:lu(teams[b]),goals:g||[],subs:s||[]});
+ const t=teams;
+ return{teams,players,cred:null,matches:[
+  M(0,1,-.6,'live',1,0,34,[{min:12,player:pl(t[0],8)}]),
+  M(2,3,-26,'finished',2,1,90,[{min:15,player:pl(t[2],9)},{min:44,player:pl(t[3],8)},{min:77,player:pl(t[2],12)}],[{min:60,out:pl(t[2],9),in:pl(t[2],11)}]),
+  M(4,5,-50,'finished',0,0,90),M(1,2,24,'upcoming',0,0,0),M(3,0,48,'upcoming',0,0,0),M(5,4,72,'upcoming',0,0,0)],
+  news:[{id:uid(),title:'Season kicks off with a thriller',body:'Cairo Falcons lost 2-1 to Accra Stars in an end-to-end opening fixture.',date:new Date().toISOString()},{id:uid(),title:'Lagos Lions lead early at home',body:'The Lions are ahead against Nairobi United in today live match.',date:new Date().toISOString()}]};
+}
+let D=load(),auth=false,tries=0,lock=0;
+try{auth=sessionStorage.getItem('pa')=='1'}catch(e){}
+function load(){try{return JSON.parse(localStorage.getItem(K))||seed()}catch(e){return seed()}}
+function save(){try{localStorage.setItem(K,JSON.stringify(D))}catch(e){}}
+const tm=id=>D.teams.find(t=>t.id==id)||{name:'Unknown',short:'?',color:'#888'},pr=id=>D.players.find(p=>p.id==id),pn=id=>(pr(id)||{name:'Unknown'}).name,gm=id=>D.matches.find(m=>m.id==id);
+const fD=s=>new Date(s).toLocaleDateString([],{day:'numeric',month:'short'}),fT=s=>new Date(s).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+const crest=t=>`<span class="cr" style="background:${E(t.color)}">${E(t.short.slice(0,3))}</span>`;
+const by=(a,k,r)=>[...a].sort((x,y)=>r?(y[k]>x[k]?1:-1):(x[k]>y[k]?1:-1));
+const card=m=>{const h=tm(m.home),a=tm(m.away),lv=m.status=='live';return `<a class="mc" href="#m/${m.id}"><div class="tm">${crest(h)}<b>${E(h.name)}</b></div><div class="sc">${m.status=='upcoming'?`<span class="ko">${fT(m.date)}</span><small>${fD(m.date)}</small>`:`<span class="n">${m.hs} - ${m.as}</span><small class="${lv?'lv':''}">${lv?'● LIVE '+m.min+"'":'FT · '+fD(m.date)}</small>`}</div><div class="tm r"><b>${E(a.name)}</b>${crest(a)}</div></a>`};
+const list=(a,e)=>a.length?a.map(card).join(''):`<div class="em">${e}</div>`;
+const news=n=>`<details class="box"><summary><b>${E(n.title)}</b><br><small>${fD(n.date)}</small></summary><p>${E(n.body)}</p></details>`;
+const lineup=ids=>ids.length?ids.map(i=>{const p=pr(i);return p?`<div class="li"><span>${p.num} · ${E(p.name)}</span><small>${p.pos}</small></div>`:''}).join(''):'<small>Not announced yet</small>';
+
+function detail(id){const m=gm(id);if(!m)return'<div class="em">Match not found</div>';const h=tm(m.home),a=tm(m.away);
+ const g=m.goals.length?by(m.goals,'min').map(x=>`<div class="li"><span>⚽ ${E(pn(x.player))} <small>${E(tm((pr(x.player)||{}).team).short)}</small></span><b>${x.min}'</b></div>`).join(''):'<small>No goals yet</small>';
+ const s=m.subs.length?by(m.subs,'min').map(x=>`<div class="li"><span><span style="color:#4ade80">▲ ${E(pn(x.in))}</span><br><span style="color:var(--rd)">▼ ${E(pn(x.out))}</span></span><b>${x.min}'</b></div>`).join(''):'<small>No substitutions yet</small>';
+ return `<a href="#fixtures" style="color:var(--mu)">← Back</a><div style="margin-top:10px">${card(m)}</div><h2>Goals &amp; scorers</h2><div class="box">${g}</div><h2>Substitutions</h2><div class="box">${s}</div><h2>Starting line-ups</h2><div class="grid"><div class="box"><b>${E(h.name)}</b>${lineup(m.lh)}</div><div class="box"><b>${E(a.name)}</b>${lineup(m.la)}</div></div>`}
+function team(id){const t=D.teams.find(x=>x.id==id);if(!t)return'';return `<a href="#teams" style="color:var(--mu)">← Teams</a><h2>${E(t.name)}</h2><div class="box">${D.players.filter(p=>p.team==id).map(p=>`<div class="li"><span>${p.num} · ${E(p.name)}</span><small>${p.pos}</small></div>`).join('')||'<small>No players</small>'}</div>`}
+
+function pub(p,id){
+ const mt=s=>D.matches.filter(m=>m.status==s),up=by(mt('upcoming'),'date'),fin=by(mt('finished'),'date',1),lv=mt('live');
+ if(p=='m')return detail(id);if(p=='t')return team(id);
+ if(p=='live')return `<h2>Live now</h2>${list(lv,'No live matches right now')}`;
+ if(p=='fixtures')return `<h2>Fixtures</h2>${list(up,'No upcoming fixtures')}`;
+ if(p=='results')return `<h2>Results</h2>${list(fin,'No results yet')}`;
+ if(p=='news')return `<h2>Football news</h2>${by(D.news,'date',1).map(news).join('')||'<div class="em">No news yet</div>'}`;
+ if(p=='teams')return `<h2>Teams &amp; players</h2>${D.teams.map(t=>`<a class="mc" style="grid-template-columns:1fr auto" href="#t/${t.id}"><div class="tm">${crest(t)}<b>${E(t.name)}</b></div><small>${D.players.filter(x=>x.team==t.id).length} players ›</small></a>`).join('')}`;
+ return `<div class="hero"><h1>Matchday <span>live</span></h1><small>Scores, line-ups, goals and news in one place.</small></div>${lv.length?`<h2>Live</h2>${list(lv)}`:''}<h2>Next fixtures</h2>${list(up.slice(0,3),'No upcoming fixtures')}<h2>Latest results</h2>${list(fin.slice(0,3),'No results yet')}<h2>News</h2>${by(D.news,'date',1).slice(0,2).map(news).join('')}`}
+
+/* ---------- ADMIN ---------- */
+const teamF=[{k:'name',l:'Team name',r:1},{k:'short',l:'Short code (3 letters)',r:1},{k:'color',l:'Colour',t:'color'}];
+const playerF=()=>[{k:'name',l:'Player name',r:1},{k:'team',l:'Team',t:'select',o:D.teams.map(t=>[t.id,t.name])},{k:'num',l:'Shirt number',t:'number'},{k:'pos',l:'Position',t:'select',o:['GK','DF','MF','FW'].map(x=>[x,x])}];
+const matchF=()=>{const o=D.teams.map(t=>[t.id,t.name]);return[{k:'home',l:'Home team',t:'select',o},{k:'away',l:'Away team',t:'select',o},{k:'date',l:'Kick-off',t:'datetime-local',r:1},{k:'status',l:'Status',t:'select',o:[['upcoming','Upcoming'],['live','Live'],['finished','Finished']]},{k:'min',l:'Match minute',t:'number'},{k:'hs',l:'Home score',t:'number'},{k:'as',l:'Away score',t:'number'}]};
+const newsF=[{k:'title',l:'Headline',r:1},{k:'body',l:'Story',t:'textarea',r:1}];
+function form(title,fs,v,cb){const o=document.createElement('div');o.className='ov';
+ o.innerHTML=`<form class="md"><h3>${E(title)}</h3>${fs.map(f=>`<label>${E(f.l)}${f.t=='select'?`<select name="${f.k}">${f.o.map(x=>`<option value="${E(x[0])}"${x[0]==v[f.k]?' selected':''}>${E(x[1])}</option>`).join('')}</select>`:f.t=='textarea'?`<textarea name="${f.k}" rows="5"${f.r?' required':''}>${E(v[f.k])}</textarea>`:`<input name="${f.k}" type="${f.t||'text'}" value="${E(v[f.k])}"${f.r?' required':''}>`}</label>`).join('')}<div class="row" style="margin-top:12px"><button type="button" class="b2">Cancel</button><button class="b1">Save</button></div></form>`;
+ document.body.append(o);o.querySelector('.b2').onclick=()=>o.remove();
+ o.querySelector('form').onsubmit=e=>{e.preventDefault();const r={};fs.forEach(f=>{const x=e.target[f.k].value;r[f.k]=f.t=='number'?+x||0:x});if(cb(r)===false)return;o.remove();save();render()}}
+function ask(msg,cb){const o=document.createElement('div');o.className='ov';o.innerHTML=`<div class="md"><p>${E(msg)}</p><div class="row"><button class="n">Cancel</button><button class="bd y">Delete</button></div></div>`;document.body.append(o);o.querySelector('.n').onclick=()=>o.remove();o.querySelector('.y').onclick=()=>{cb();o.remove();save();render()}}
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.append(d);setTimeout(()=>d.remove(),2200)}
+const rowx=(l,id,x)=>`<div class="li"><span>${l}</span><span class="row" style="gap:6px">${x}</span></div>`;
+const bt=(a,id,t,c)=>`<button class="${c||''}" data-a="${a}" data-id="${id}">${t}</button>`;
+
+function ev(id){const m=gm(id);if(!m)return'';const pls=D.players.filter(p=>p.team==m.home||p.team==m.away),opt=pls.map(p=>`<option value="${p.id}">${E(p.name)} (${E(tm(p.team).short)})</option>`).join('');
+ const side=(t,k)=>`<div class="box"><b>${E(t.name)} line-up</b>${D.players.filter(p=>p.team==t.id).map(p=>`<label class="li" style="margin:0"><span>${p.num} · ${E(p.name)} <small>${p.pos}</small></span><input type="checkbox" style="width:auto" value="${p.id}"${m[k].includes(p.id)?' checked':''}></label>`).join('')}<button class="b1" style="margin-top:10px" data-a="lineup" data-id="${m.id}" data-k="${k}">Save line-up</button></div>`;
+ return `<a href="#admin/matches" style="color:var(--mu)">← Matches</a><div style="margin-top:10px">${card(m)}</div><h2>Goals</h2><div class="box">${m.goals.map((g,i)=>rowx(`⚽ ${E(pn(g.player))} ${g.min}'`,0,bt('dg',m.id+'|'+i,'✕','bd'))).join('')}<form data-f="goal" data-id="${m.id}"><label>Scorer<select name="player">${opt}</select></label><label>Minute<input name="min" type="number" value="1"></label><button class="b1">Add goal (score updates)</button></form></div>
+ <h2>Substitutions</h2><div class="box">${m.subs.map((s,i)=>rowx(`▲ ${E(pn(s.in))} ▼ ${E(pn(s.out))} ${s.min}'`,0,bt('ds',m.id+'|'+i,'✕','bd'))).join('')}<form data-f="sub" data-id="${m.id}"><label>Player going off<select name="so">${opt}</select></label><label>Player coming on<select name="si">${opt}</select></label><label>Minute<input name="min" type="number" value="60"></label><button class="b1">Add substitution</button></form></div>
+ <h2>Line-ups</h2>${side(tm(m.home),'lh')}${side(tm(m.away),'la')}`}
+
+function admin(s,x){
+ if(!auth)return `<h2>Admin login</h2><form class="box" data-f="login"><label>Username<input name="u" autocomplete="username" required></label><label>Password<input name="pw" type="password" autocomplete="current-password" required></label><p id="err" style="color:var(--rd);margin:4px 0"></p><button class="b1">Sign in</button></form>`;
+ s=s||'matches';if(s=='ev')return ev(x);
+ let h=`<div class="row"><h2 style="margin:8px 0">Admin</h2><button data-a="out">Log out</button></div><nav class="tabs" style="padding:0 0 10px">${['matches','teams','players','news','settings'].map(t=>`<a href="#admin/${t}" class="${t==s?'on':''}">${t}</a>`).join('')}</nav>`;
+ if(s=='matches')h+=`<button class="b1" data-a="am">+ Add match</button><div class="box" style="margin-top:10px">${by(D.matches,'date',1).map(m=>rowx(`${E(tm(m.home).short)} v ${E(tm(m.away).short)} <small>${m.status} · ${fD(m.date)}</small>`,0,bt('em',m.id,'Edit')+bt('ev',m.id,'Events')+bt('dm',m.id,'✕','bd'))).join('')||'<small>No matches</small>'}</div>`;
+ if(s=='teams')h+=`<button class="b1" data-a="at">+ Add team</button><div class="box" style="margin-top:10px">${D.teams.map(t=>rowx(`${crest(t)} ${E(t.name)}`,0,bt('et',t.id,'Edit')+bt('dt',t.id,'✕','bd'))).join('')}</div>`;
+ if(s=='players')h+=`<button class="b1" data-a="ap">+ Add player</button><div class="box" style="margin-top:10px">${D.players.map(p=>rowx(`${p.num} ${E(p.name)} <small>${E(tm(p.team).short)} · ${p.pos}</small>`,0,bt('ep',p.id,'Edit')+bt('dp',p.id,'✕','bd'))).join('')}</div>`;
+ if(s=='news')h+=`<button class="b1" data-a="an">+ Add news</button><div class="box" style="margin-top:10px">${by(D.news,'date',1).map(n=>rowx(E(n.title),0,bt('en',n.id,'Edit')+bt('dn',n.id,'✕','bd'))).join('')}</div>`;
+ if(s=='settings')h+=`<form class="box" data-f="cred"><b>Change login</b><label>Current password<input name="cur" type="password" required></label><label>New username<input name="u" value="${E((D.cred||{u:'admin'}).u)}" required></label><label>New password (min 8 characters)<input name="pw" type="password" minlength="8" required></label><button class="b1">Update login</button></form><div class="box"><button class="bd" data-a="rs">Reset all data to demo</button></div>`;
+ return h}
+
+const A={
+ out(){auth=false;try{sessionStorage.removeItem('pa')}catch(e){}render()},
+ at(){form('Add team',teamF,{color:'#c6ff3d'},r=>D.teams.push({id:uid(),...r}))},
+ et(id){const t=D.teams.find(x=>x.id==id);form('Edit team',teamF,t,r=>Object.assign(t,r))},
+ dt(id){ask('Delete this team, its players and its matches?',()=>{D.teams=D.teams.filter(t=>t.id!=id);D.players=D.players.filter(p=>p.team!=id);D.matches=D.matches.filter(m=>m.home!=id&&m.away!=id)})},
+ ap(){if(!D.teams.length)return toast('Add a team first');form('Add player',playerF(),{num:1},r=>D.players.push({id:uid(),...r}))},
+ ep(id){const p=pr(id);form('Edit player',playerF(),p,r=>Object.assign(p,r))},
+ dp(id){ask('Delete this player?',()=>{D.players=D.players.filter(p=>p.id!=id);D.matches.forEach(m=>{m.lh=m.lh.filter(i=>i!=id);m.la=m.la.filter(i=>i!=id)})})},
+ am(){if(D.teams.length<2)return toast('Add two teams first');const n=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16);form('Add match',matchF(),{home:D.teams[0].id,away:D.teams[1].id,date:n,status:'upcoming',min:0,hs:0,as:0},r=>{if(r.home==r.away){toast('Pick two different teams');return false}D.matches.push({id:uid(),...r,lh:[],la:[],goals:[],subs:[]})})},
+ em(id){const m=gm(id);form('Edit match',matchF(),m,r=>{if(r.home==r.away){toast('Pick two different teams');return false}Object.assign(m,r)})},
+ dm(id){ask('Delete this match?',()=>{D.matches=D.matches.filter(m=>m.id!=id)})},
+ ev(id){location.hash='admin/ev/'+id},
+ an(){form('Add news',newsF,{},r=>D.news.push({id:uid(),...r,date:new Date().toISOString()}))},
+ en(id){const n=D.news.find(x=>x.id==id);form('Edit news',newsF,n,r=>Object.assign(n,r))},
+ dn(id){ask('Delete this story?',()=>{D.news=D.news.filter(n=>n.id!=id)})},
+ lineup(id,b){const m=gm(id);m[b.dataset.k]=[...b.closest('.box').querySelectorAll('input:checked')].map(i=>i.value);save();toast('Line-up saved')},
+ dg(v){const[id,i]=v.split('|'),m=gm(id),g=m.goals.splice(+i,1)[0],p=pr(g.player);if(p)p.team==m.home?m.hs=Math.max(0,m.hs-1):m.as=Math.max(0,m.as-1);save();render()},
+ ds(v){const[id,i]=v.split('|');gm(id).subs.splice(+i,1);save();render()},
+ rs(){ask('Reset everything to the demo data?',()=>{D=seed()})}
+};
+const F={
+ goal(f){const m=gm(f.dataset.id),p=pr(f.player.value);if(!p)return;m.goals.push({min:+f.min.value||0,player:p.id});p.team==m.home?m.hs++:m.as++;save();render()},
+ sub(f){const m=gm(f.dataset.id),o=pr(f.so.value),i=pr(f.si.value);if(!o||!i||o.id==i.id||o.team!=i.team)return toast('Choose two different players from the same team');m.subs.push({min:+f.min.value||0,out:o.id,in:i.id});save();render()},
+ async login(f){if(Date.now()<lock){f.querySelector('#err').textContent='Too many attempts. Wait a minute.';return}
+  let ok=false;try{const c=D.cred||{u:'admin',h:await sha('Pugnido2026!')};ok=f.u.value==c.u&&await sha(f.pw.value)==c.h}catch(e){}
+  if(ok){auth=true;tries=0;try{sessionStorage.setItem('pa','1')}catch(e){}render()}else{if(++tries>=5){lock=Date.now()+6e4;tries=0}f.querySelector('#err').textContent='Wrong username or password'}},
+ async cred(f){const c=D.cred||{u:'admin',h:await sha('Pugnido2026!')};if(await sha(f.cur.value)!=c.h)return toast('Current password is wrong');D.cred={u:f.u.value.trim(),h:await sha(f.pw.value)};save();f.reset();toast('Login updated')}
+};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&auth&&A[b.dataset.a])A[b.dataset.a](b.dataset.id,b)});
+document.addEventListener('submit',e=>{const f=e.target.closest('[data-f]');if(!f)return;e.preventDefault();if(f.dataset.f=='login'||auth)F[f.dataset.f](f)});
+
+function render(){const[p,id,x]=(location.hash.slice(1)||'home').split('/');
+ document.getElementById('app').innerHTML=p=='admin'?admin(id,x):pub(p,id);
+ const lc=D.matches.filter(m=>m.status=='live').length,T=[['home','Home'],['live','Live'+(lc?' ●':'')],['fixtures','Fixtures'],['results','Results'],['news','News'],['teams','Teams'],['admin','Admin']],cur=p=='m'?'live':p=='t'?'teams':p;
+ document.getElementById('nv').innerHTML=T.map(t=>`<a href="#${t[0]}" class="${t[0]==cur?'on':''}">${t[1]}</a>`).join('')}
+addEventListener('hashchange',()=>{render();scrollTo(0,0)});
+addEventListener('storage',()=>{D=load();render()});
+render();
+</script></body></html>
