@@ -1,16 +1,16 @@
-<script>
-  fetch('/content/news.json')
-    .then(response => response.json())
-    .then(newsList => {
-      const container = document.getElementById('news-container');
-      newsList.forEach(item => {
-        container.innerHTML += `
-          <div class="news-item">
-            <h3>${item.title}</h3>
-            <small>${item.date}</small>
-            <p>${item.body}</p>
-          </div>
-        `;
-      });
-    });
-</script>
+media: "assets/images"
+content:
+  - name: "news"
+    label: "News Management"
+    type: "collection"
+    path: "content"
+    fields:
+      - name: "title"
+        label: "Title"
+        type: "string"
+      - name: "date"
+        label: "Date"
+        type: "date"
+      - name: "body"
+        label: "Content"
+        type: "rich-text"
