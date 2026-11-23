@@ -163,20 +163,5 @@ function render(){const[p,id,x]=(location.hash.slice(1)||'home').split('/');
 addEventListener('hashchange',()=>{render();scrollTo(0,0)});
 addEventListener('storage',()=>{D=load();render()});
 render();
- <script>
-  fetch('/content/news.json')
-    .then(response => response.json())
-    .then(newsList => {
-      const container = document.getElementById('news-container');
-      newsList.forEach(item => {
-        container.innerHTML += `
-          <div class="news-item">
-            <h3>${item.title}</h3>
-            <small>${item.date}</small>
-            <p>${item.body}</p>
-          </div>
-        `;
-      });
-    });
-</script>
+
 </script></body></html>
